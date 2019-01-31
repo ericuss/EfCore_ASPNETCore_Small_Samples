@@ -1,0 +1,1 @@
+# EfCore_ASPNETCore_Small_Samples
