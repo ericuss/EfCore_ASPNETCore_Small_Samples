@@ -7,11 +7,11 @@ namespace Creating.From.Context.Contexts
         // public DbSet<Author> Authors { get; set; }
         public LibraryContext(DbContextOptions<LibraryContext> options) : base(options) { }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            // optionsBuilder.UseInMemoryDatabase("LibraryDb");
-            optionsBuilder.UseSqlServer(@"Server=.;Initial Catalog=LibraryDb;Persist Security Info=False;User ID=sa;Password=Plain2018;MultipleActiveResultSets=False;Encrypt=false;TrustServerCertificate=False;Connection Timeout=30;");
-        }   
+        // protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        // {
+        //     // optionsBuilder.UseInMemoryDatabase("LibraryDb");
+        //     optionsBuilder.UseSqlServer(@"Server=.;Initial Catalog=LibraryDb;Persist Security Info=False;User ID=sa;Password=Plain2018;MultipleActiveResultSets=False;Encrypt=false;TrustServerCertificate=False;Connection Timeout=30;");
+        // }   
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
