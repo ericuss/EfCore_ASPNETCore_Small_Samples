@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Creating.From.Api.Settings;
+using Creating.From.Infrastructure.Settings;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -10,14 +12,28 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Creating.From.Context;
 
 namespace Creating.From.Api
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        private readonly IHostingEnvironment _currentEnvironment;
+        private readonly AppSettings _appSettings;
+
+        public Startup(IHostingEnvironment env)
         {
-            Configuration = configuration;
+            this._currentEnvironment = env;
+
+            var configBuilder = new ConfigurationBuilder()
+               .SetBasePath(env.ContentRootPath)
+               .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+               .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
+               .AddEnvironmentVariables()
+                ;
+
+            var builder = configBuilder.Build();
+            this._appSettings = builder.Get<AppSettings>();
         }
 
         public IConfiguration Configuration { get; }
@@ -25,7 +41,10 @@ namespace Creating.From.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services
+                .AddMvc()
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.ConfigureDbs(this._appSettings);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -11,4 +11,8 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="2.2.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.2.1" />
   </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Creating.From.Infrastructure\Creating.From.Infrastructure.csproj" />
+  </ItemGroup>
 </Project>

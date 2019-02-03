@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Creating.From.Context.Contexts;
+using Creating.From.Infrastructure.Settings;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -9,13 +10,13 @@ namespace Creating.From.Context
     public static class ConfigureContext
     {
 
-        public static async Task<IServiceCollection> ConfigureDbs(this IServiceCollection services, AppSettings appSettings)
+        public static IServiceCollection ConfigureDbs(this IServiceCollection services, AppSettings appSettings)
         {
-            await services.ConfigureDb<LibraryContext>(appSettings, appSettings.ConnectionStrings.Library, appSettings.Database.DbName);
+             services.ConfigureDb<LibraryContext>(appSettings, appSettings.ConnectionStrings.Library, appSettings.Database.DbName);
             return services;
         }
 
-        private static async Task ConfigureDb<TContext>(this IServiceCollection services, AppSettings settings, string connectionString, string dbName)
+        private static void ConfigureDb<TContext>(this IServiceCollection services, AppSettings settings, string connectionString, string dbName)
             where TContext : DbContext
         {
             if (settings.Database.UseInMemory)
@@ -43,12 +44,12 @@ namespace Creating.From.Context
             {
                 if (settings.Database.EnsureDeleted)
                 {
-                    await context.Database.EnsureDeletedAsync();
+                    context.Database.EnsureDeleted();
                 }
 
                 if (settings.Database.EnsureCreated)
                 {
-                    await context.Database.EnsureCreatedAsync();
+                    context.Database.EnsureCreated();
                 }
 
                 if (settings.Database.ApplyMigrations)

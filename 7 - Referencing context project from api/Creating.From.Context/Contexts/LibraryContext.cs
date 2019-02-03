@@ -2,9 +2,10 @@ namespace Creating.From.Context.Contexts
 {
     using Microsoft.EntityFrameworkCore;
 
-    public class LibraryContext : Context
+    public class LibraryContext : Context<LibraryContext>
     {
         // public DbSet<Author> Authors { get; set; }
+        public LibraryContext(DbContextOptions<LibraryContext> options) : base(options) { }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
