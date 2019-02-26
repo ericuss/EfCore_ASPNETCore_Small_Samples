@@ -14,33 +14,16 @@
             Console.WriteLine("Hello World!");
 
             var context = new LibraryContext();
-            context.Add(new Author()
-            {
-                Id = Guid.NewGuid(),
-                Name = "Santiago Posteguillo",
-                Books = new List<Book>()
-                {
-                    new Book(){
-                        Id = Guid.NewGuid(),
-                        Name = "Africanus"
-                    },
-                    new Book(){
-                        Id = Guid.NewGuid(),
-                        Name = "Las legiones malditas"
-                    }
-                }
-            });
-            context.Add(new Author() { Id = Guid.NewGuid(), Name = "Simon Scarrow" });
-            context.Add(new Author() { Id = Guid.NewGuid(), Name = "Steven Pressfiel" });
-            context.Add(new Author() { Id = Guid.NewGuid(), Name = "Orson Scott" });
-            context.Add(new Author() { Id = Guid.NewGuid(), Name = "John Scalzi" });
-
-            context.SaveChanges();
+            context.Database.EnsureDeleted();
+            context.Database.EnsureCreated();
+            //context.Database.Migrate();
 
             Console.WriteLine();
+
             var author = context.Set<Author>()
                 .Include(x => x.Books)
                 .FirstOrDefault();
+
             Console.WriteLine($"Author - First: {author.Name}; Books: {string.Join(",", author.Books.Select(b => b.Name))}");
 
             Console.WriteLine();

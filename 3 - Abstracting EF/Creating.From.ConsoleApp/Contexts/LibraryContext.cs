@@ -1,6 +1,7 @@
 namespace Creating.From.ConsoleApp.Contexts
 {
     using Microsoft.EntityFrameworkCore;
+    using Creating.From.ConsoleApp.Contexts.Mappings;
 
     public class LibraryContext : Context
     {
@@ -23,6 +24,8 @@ namespace Creating.From.ConsoleApp.Contexts
             // var book = modelBuilder.Entity<Book>();
             // book.HasKey(x => x.Id);
             // book.ToTable("Books");
+            //new AuthorMappings().Map(modelBuilder);
+            //new BookMappings().Map(modelBuilder);
         }
     }
 }

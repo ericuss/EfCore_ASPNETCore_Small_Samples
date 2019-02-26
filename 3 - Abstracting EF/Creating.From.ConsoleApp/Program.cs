@@ -54,6 +54,10 @@
             var authors = context.Set<Author>().ToList();
             authors.ForEach(a => Console.WriteLine(a.Name));
 
+            var books = context.Set<Book>().ToList();
+
+
+
             Console.WriteLine();
             Console.WriteLine("Press enter to exit");
             var h = Console.ReadLine();

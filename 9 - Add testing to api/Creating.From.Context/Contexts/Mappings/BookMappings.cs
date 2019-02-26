@@ -1,9 +1,9 @@
-namespace Creating.From.ConsoleApp.Contexts.Mappings
+namespace Creating.From.Context.Contexts.Mappings
 {
     using System;
     using System.Collections.Generic;
     using Core;
-    using Creating.From.ConsoleApp.Entities;
+    using Creating.From.Context.Entities;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -26,11 +26,6 @@ namespace Creating.From.ConsoleApp.Contexts.Mappings
                 new Book(){
                     Id = Guid.Parse("41fad579-629f-49ff-855e-36b88cf29cb9"),
                     Name = "Las legiones malditas",
-                    AuthorId = Guid.Parse("64c3d8f1-723f-4a05-a8a6-af6329ea5781"),
-                },
-                new Book(){
-                    Id = Guid.NewGuid(),
-                    Name = "s malditas",
                     AuthorId = Guid.Parse("64c3d8f1-723f-4a05-a8a6-af6329ea5781"),
                 }
             };

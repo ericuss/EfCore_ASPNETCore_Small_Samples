@@ -10,7 +10,7 @@ namespace Creating.From.Api.Controllers
 
     [Route("api/[controller]")]
     [ApiController]
-    public class AuthorsController : ControllerBase
+    public class AuthorsV2Controller : ControllerBase
     {
         public static IEnumerable<AuthorDto> _authors { get; set; } = new List<AuthorDto>();
         
@@ -42,11 +42,11 @@ namespace Creating.From.Api.Controllers
         {
             if (string.IsNullOrWhiteSpace(authorCreate.Name))
             {
-                throw new ArgumentException("author name cannot be empty");
+                return this.BadRequest(new { message = "author name cannot be empty"});
             }
             else if (_authors.Any(x => x.Name == authorCreate.Name))
             {
-                throw new ArgumentException("author name has been created before");
+                return this.BadRequest(new { message = "author name has been created before"});
             }
 
             var newAuthor = new AuthorDto()
@@ -59,7 +59,7 @@ namespace Creating.From.Api.Controllers
             authors.Add(newAuthor);;
             _authors =authors;
 
-            return this.Created(newAuthor);
+            return this.Ok(newAuthor);
         }
 
         // PUT api/values/5
@@ -68,14 +68,14 @@ namespace Creating.From.Api.Controllers
         {
             if (authorCreate == null && string.IsNullOrWhiteSpace(authorCreate.Name))
             {
-                throw new ArgumentException("author name cannot be empty");
+                return this.BadRequest(new { message = "author name cannot be empty"});
             }
 
             var author = _authors.FirstOrDefault(x => x.Id == id);
 
             if (author == null)
             {
-                throw new ArgumentException("author name was not found");
+                return this.NotFound(new { message = "author was not found"});
             }
 
             author.Name = authorCreate.Name;
@@ -88,7 +88,7 @@ namespace Creating.From.Api.Controllers
         {
             if (_authors.Any(x => x.Id == id))
             {
-                throw new ArgumentException("author name was not found");
+                return this.NotFound(new { message = "author name was not found"});
             }
 
             _authors = _authors.Where(x => x.Id != id);

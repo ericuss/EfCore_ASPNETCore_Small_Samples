@@ -59,7 +59,7 @@ namespace Creating.From.Api.Controllers
             authors.Add(newAuthor);;
             _authors =authors;
 
-            return this.Created(newAuthor);
+            return this.Ok(newAuthor);
         }
 
         // PUT api/values/5
